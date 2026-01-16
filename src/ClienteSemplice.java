@@ -14,12 +14,29 @@ public class ClienteSemplice {
             BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
             Scanner scanner = new Scanner(System.in);
 
-            System.out.println("Connesso al server. Scrivi qualcosa: ");
+            System.out.println("=== CALCOLATORE POLIGONI REGOLARI ===");
+            System.out.println("Connesso al server.");
+            System.out.println("Inserisci: numeroLati lunghezzaLato");
+            System.out.println("Esempio: 5 10 (per un pentagono con lato di 10)");
+            System.out.println("Scrivi 'BYE' per uscire\n");
+            
             String userInput;
-            while ((userInput = scanner.nextLine()) != null) {
+            while (scanner.hasNextLine()) {
+                System.out.print("Input: ");
+                userInput = scanner.nextLine();
+                
                 out.println(userInput);
-                System.out.println("Risposta: " + in.readLine());
+                
+                if ("BYE".equalsIgnoreCase(userInput)) {
+                    System.out.println(in.readLine());
+                    break;
+                }
+                
+                String response = in.readLine();
+                System.out.println(response + "\n");
             }
+            
+            scanner.close();
         } catch (IOException e) {
             e.printStackTrace();
         }
